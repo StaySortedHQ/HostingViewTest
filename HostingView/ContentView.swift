@@ -6,11 +6,40 @@
 //
 
 import SwiftUI
+import UIKit
+
+enum Route {
+    case hosting
+    case normal
+}
 
 struct ContentView: View {
+    @State var route: Route = .hosting
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        HStack {
+            VStack {
+                Button("To hosting") {
+                    route = .hosting
+                }
+                Button("To normal") {
+                    route = .normal
+                }
+            }
+            .frame(width: 300)
+            VStack {
+                switch route {
+                case .hosting:
+                    HostingView(view: Text("1").onAppear {
+                        print("1 appear")
+                    })
+
+                case .normal:
+                    Text("Normal")
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
 
